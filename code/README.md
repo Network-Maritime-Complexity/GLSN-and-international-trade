@@ -16,7 +16,7 @@ The repository allows one to reproduce the quantitative results reported in the 
 
 ## OS Requirements
 
-These scripts have been tested on *Windows 10* operating system.
+These scripts have been tested on *Windows10* operating system.
 
 ### Installing Python on Windows
 
@@ -48,7 +48,7 @@ xlrd==1.2.0
 xlwt==1.3.0
 ```
 
-If using computers with a *Windows 10* operating system, users can install the packages in the following ways:
+If using computers with a *Windows10* operating system, users can install the packages in the following ways:
 
 To install all the packages, please open the *cmd* window in the root folder and type:
 
