@@ -16,7 +16,7 @@ The repository allows one to reproduce the quantitative results reported in the 
 
 ## OS Requirements
 
-These scripts have been tested on *Windows10* operating system.
+These scripts have been tested on *Windows 10* operating system.
 
 ### Installing Python on Windows
 
