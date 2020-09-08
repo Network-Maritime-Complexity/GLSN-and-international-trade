@@ -173,8 +173,10 @@ def table3():
     y = data[y_col]
     y = np.log(y)
 
-    param_cols = ['ln(GDPi x GDPj)', 'ln(dij)', 'ln(LSBCIij)', 'ln(Gbi x Gbj)']
-    N = len(param_cols)
+    models = [['ln(GDPi x GDPj)', 'ln(dij)'], ['ln(GDPi x GDPj)', 'ln(dij)', 'ln(LSBCIij)'],
+              ['ln(GDPi x GDPj)', 'ln(dij)', 'ln(Gbi x Gbj)'],
+              ['ln(GDPi x GDPj)', 'ln(dij)', 'ln(LSBCIij)', 'ln(Gbi x Gbj)']]
+    N = 4
 
     list_nobs = []
     list_adj_r2 = []
@@ -182,33 +184,31 @@ def table3():
     list_vif = []
     list_aic = []
     list_col_idx = []
-    for n in np.arange(1, N+1, 1):
-        x_cols = list(itertools.combinations(param_cols, r=int(n)))
-        for x in x_cols:
-            sep = ', '
-            xname = sep.join(x)
-            list_col_idx.append(xname)
-            xs = list(x)
-            x = z_score(data[xs])
-            X = sm.add_constant(x)
-            model = sm.OLS(y, X)
-            fit_res = model.fit()
-            # print(fit_res.summary())
+    sep = ', '
+    for model in models:
+        xname = sep.join(model)
+        list_col_idx.append(xname)
 
-            list_adj_r2.append(fit_res.rsquared_adj)
-            f_pvalue = pval_marker(fit_res.f_pvalue)
-            list_fpval.append(f_pvalue)
-            list_nobs.append(fit_res.nobs)
+        x = z_score(data[model])
+        X = sm.add_constant(x)
+        model = sm.OLS(y, X)
+        fit_res = model.fit()
+        # print(fit_res.summary())
 
-            list_vif.append([round(variance_inflation_factor(X.values, i), 2) for i in range(X.shape[1])])
+        list_adj_r2.append(fit_res.rsquared_adj)
+        f_pvalue = pval_marker(fit_res.f_pvalue)
+        list_fpval.append(f_pvalue)
+        list_nobs.append(fit_res.nobs)
 
-            # AIC
-            predict_y = fit_res.predict()
-            RSS = sum((y - predict_y) ** 2)
-            num_obs = fit_res.nobs
-            K = fit_res.df_model + fit_res.k_constant
-            aic = round(num_obs * np.log(RSS / num_obs) + 2 * K, 2)
-            list_aic.append(aic)
+        list_vif.append([round(variance_inflation_factor(X.values, i), 2) for i in range(X.shape[1])])
+
+        # AIC
+        predict_y = fit_res.predict()
+        RSS = sum((y - predict_y) ** 2)
+        num_obs = fit_res.nobs
+        K = fit_res.df_model + fit_res.k_constant
+        aic = round(num_obs * np.log(RSS / num_obs) + 2 * K, 2)
+        list_aic.append(aic)
 
     cols = ['variable' + str(i) for i in range(1, N+1)]
     cols.insert(0, 'const')
@@ -240,8 +240,10 @@ def tables6():
     y = data[y_col]
     y = np.log(y)
 
-    param_cols = ['ln(GDPi x GDPj)', 'ln(dij)', 'ln(LSBCIij)', 'ln(Gci x Gcj)']
-    N = len(param_cols)
+    models = [['ln(GDPi x GDPj)', 'ln(dij)'], ['ln(GDPi x GDPj)', 'ln(dij)', 'ln(LSBCIij)'],
+              ['ln(GDPi x GDPj)', 'ln(dij)', 'ln(Gci x Gcj)'],
+              ['ln(GDPi x GDPj)', 'ln(dij)', 'ln(LSBCIij)', 'ln(Gci x Gcj)']]
+    N = 4
 
     list_nobs = []
     list_adj_r2 = []
@@ -249,33 +251,31 @@ def tables6():
     list_vif = []
     list_aic = []
     list_col_idx = []
-    for n in np.arange(1, N+1, 1):
-        x_cols = list(itertools.combinations(param_cols, r=int(n)))
-        for x in x_cols:
-            sep = ', '
-            xname = sep.join(x)
-            list_col_idx.append(xname)
-            xs = list(x)
-            x = z_score(data[xs])
-            X = sm.add_constant(x)
-            model = sm.OLS(y, X)
-            fit_res = model.fit()
-            # print(fit_res.summary())
+    sep = ', '
+    for model in models:
+        xname = sep.join(model)
+        list_col_idx.append(xname)
 
-            list_adj_r2.append(fit_res.rsquared_adj)
-            f_pvalue = pval_marker(fit_res.f_pvalue)
-            list_fpval.append(f_pvalue)
-            list_nobs.append(fit_res.nobs)
+        x = z_score(data[model])
+        X = sm.add_constant(x)
+        model = sm.OLS(y, X)
+        fit_res = model.fit()
+        # print(fit_res.summary())
 
-            list_vif.append([round(variance_inflation_factor(X.values, i), 2) for i in range(X.shape[1])])
+        list_adj_r2.append(fit_res.rsquared_adj)
+        f_pvalue = pval_marker(fit_res.f_pvalue)
+        list_fpval.append(f_pvalue)
+        list_nobs.append(fit_res.nobs)
 
-            # AIC
-            predict_y = fit_res.predict()
-            RSS = sum((y - predict_y) ** 2)
-            num_obs = fit_res.nobs
-            K = fit_res.df_model + fit_res.k_constant
-            aic = round(num_obs * np.log(RSS / num_obs) + 2 * K, 2)
-            list_aic.append(aic)
+        list_vif.append([round(variance_inflation_factor(X.values, i), 2) for i in range(X.shape[1])])
+
+        # AIC
+        predict_y = fit_res.predict()
+        RSS = sum((y - predict_y) ** 2)
+        num_obs = fit_res.nobs
+        K = fit_res.df_model + fit_res.k_constant
+        aic = round(num_obs * np.log(RSS / num_obs) + 2 * K, 2)
+        list_aic.append(aic)
 
     cols = ['variable' + str(i) for i in range(1, N+1)]
     cols.insert(0, 'const')
