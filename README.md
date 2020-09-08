@@ -14,4 +14,4 @@ https://arxiv.org/abs/2001.07688
 * Qian Pan: <qianpan_93@163.com>
 
 ## Zenodo repository
-https://doi.org/10.5281/zenodo.3984329
+https://doi.org/10.5281/zenodo.4018584
